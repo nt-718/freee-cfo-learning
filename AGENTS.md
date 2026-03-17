@@ -64,9 +64,67 @@
 ```
 .cursor/rules/    — 普遍的な執筆ルールとパターン固有のガイドラインを定義するMDCルール群
 agents/           — 特化型の執筆サプエージェント群（共通エージェント & パターン上書き）
+  common/         — 汎用エージェント（researcher, drafter, copy-editor, fact-checker, content-director）
+  learning/       — CFO学習専用エージェント（kb-navigator, quiz-master, scenario-coach）
 skills/           — フォーマット別のアダプター（ビジネス、クリエイティブ、学術、SNS/PRなど）
+                    + CFO学習スキル（cfo-quiz, kb-lookup, week-review, scenario）
 workflows/        — 複数エージェントによる実行プレイブック（長文、迅速、再利用・変換）
+                    + CFO学習ワークフロー（weekly-study, kb-deep-dive）
 hooks/            — コミット・最終化前のテキスト検証スクリプト
+kb/               — freee 知識ベース（2,424記事、36カテゴリ）
+roadmap/          — CFO学習計画・週次ガイド・学習ログ
+```
+
+---
+
+## CFO学習補助ツール
+
+freee KB（2,424記事）を活用したCFO向け16週間学習カリキュラムをサポートする専用ツール群です。
+
+### 学習専用エージェント
+
+| エージェント名 | 目的・役割 | いつ使用するか |
+|---|---|---|
+| `kb-navigator` | KB記事の探索・優先度付き提示 | トピックの調査、Week記事の特定 |
+| `quiz-master` | 理解度クイズの生成と採点 | 学習後の確認、苦手範囲の特定 |
+| `scenario-coach` | CFOシナリオの生成とコーチング | 知識を判断力に変換するトレーニング |
+
+### 学習スキル（スラッシュコマンド）
+
+| コマンド | 説明 | 使用例 |
+|---|---|---|
+| `/cfo-quiz` | Week/トピックのクイズを生成 | `/cfo-quiz Week 5` |
+| `/kb-lookup` | KB検索・用語解説 | `/kb-lookup 定期同額給与` |
+| `/week-review` | 週次振り返り・ログ記録支援 | `/week-review Week 3` |
+| `/scenario` | CFOビジネスシナリオ実践 | `/scenario 資金繰り 実戦` |
+
+### 学習ワークフロー
+
+| ワークフロー | 説明 | 所要時間 |
+|---|---|---|
+| `weekly-study` | 1週分の学習を完結（KB→クイズ→シナリオ→ログ） | 60〜90分 |
+| `kb-deep-dive` | 1トピックを体系的に深掘り（要点シート生成付き） | 40〜70分 |
+
+### 典型的な学習フロー
+
+```
+# 通常の学習（1セッション）
+weekly-study Week {N}
+  └─ Step 1: kb-navigator が記事を特定
+  └─ Step 2: 精読サポート
+  └─ Step 3: quiz-master がクイズ生成
+  └─ Step 4: scenario-coach がシナリオ実践
+  └─ Step 5: ログ記録
+
+# 用語が分からないとき
+/kb-lookup {用語}
+
+# もっと深く知りたいとき
+kb-deep-dive {トピック}
+  └─ KB全量サーベイ → 構造化インプット → クイズ → シナリオ → 要点シート保存
+
+# 週末の振り返り
+/week-review Week {N}  → /cfo-quiz Week {N}
 ```
 
 ## 成功の定義 (Success Metrics)
